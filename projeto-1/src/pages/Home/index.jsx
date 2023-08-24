@@ -29,16 +29,30 @@ class Home extends Component {
   };
 
   loadMorePosts = () => {
-    console.log("Load more posts");
+    const { page, postsPerPage, allPosts, posts } = this.state;
+    const nextPage = page + postsPerPage;
+    const nextPosts = allPosts.splice(nextPage, postsPerPage);
+    //serve para ir cortando o array e indo de 2 em 2 por página
+    posts.push(...nextPosts);
+
+    this.setState({ posts, page: nextPage });
   };
 
   render() {
-    const { posts } = this.state;
+    const { posts, page, postsPerPage, allPosts } = this.state;
+    const noMorePosts = page + postsPerPage >= allPosts.length;
 
     return (
       <section className="container">
+        <input type="searcj"></input> <br />
         <Posts posts={posts} />
-        <Button text="Carregar mais posts" onClick={this.loadMorePosts} />
+        <div className="button-container">
+          <Button
+            text="Carregar mais posts"
+            onClick={this.loadMorePosts}
+            disabled={noMorePosts}
+          />
+        </div>
       </section>
     );
   }
