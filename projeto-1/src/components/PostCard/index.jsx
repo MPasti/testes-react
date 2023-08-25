@@ -1,4 +1,5 @@
 //export default function postCard()
+import "./styles.css";
 
 export const PostCard = ({ post }) => {
   return (
